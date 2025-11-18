@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+.identidad-card{
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.card-img-top {
+    max-height: 144px;
+    object-fit: cover;
+}
 
 body {
     font-family: 'Montserrat', sans-serif;
