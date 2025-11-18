@@ -9,6 +9,12 @@ body {
     padding: 0;
 }
 
+form {
+  border: 2px solid black;   /* grosor, estilo y color del borde */
+  padding: 20px;             /* espacio interno para que no se pegue el texto al borde */
+  border-radius: 8px;        /* opcional: esquinas redondeadas */
+}
+
 .hero-section {
     background: url('../../imagenes/banner/Granada.jpg') no-repeat center center/cover;
     color: white;
@@ -90,4 +96,15 @@ body {
 
 .sport-section h2 {
     color: #e67e22;
+}
+
+.caja{
+    display: flex;
+    justify-content: center; /* centra horizontal */
+    align-items: center;     /* centra vertical */
+    text-align: center;
+}
+
+.encabezado{
+    font-weight: bold;
 }
