@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+:root{
+    --card-height: 420px;       /* altura total de cada tarjeta (ajustable) */
+    --card-img-height: 220px;   /* altura del área de imagen */
+}
+
 .identidad-card{
     padding: 15px;
     border-radius: 10px;
-}
-
-.card-img-top {
-    max-height: 144px;
-    object-fit: cover;
 }
 
 body {
@@ -18,40 +18,41 @@ body {
     padding: 0;
 }
 
+/* Ajustes generales de formulario */
 form {
-  border: 2px solid black;   /* grosor, estilo y color del borde */
-  padding: 20px;             /* espacio interno para que no se pegue el texto al borde */
-  border-radius: 8px;        /* opcional: esquinas redondeadas */
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 8px;
 }
 
+/* Hero */
 .hero-section {
     background: url('../../imagenes/banner/Granada.jpg') no-repeat center center/cover;
     color: white;
     padding: 100px 0;
     text-align: center;
 }
-
 .hero-section h1 {
     font-size: 3.5rem;
     font-weight: 700;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
-
 .hero-section .lead {
     font-size: 1.5rem;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
+/* Secciones */
 .identidad-section, .pornosotros, #actividades {
     padding: 4rem 0;
 }
 
+/* Tarjetas: sombra, transición y comportamiento */
 .identidad-card, .card {
     border: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .identidad-card:hover, .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -62,6 +63,7 @@ form {
     font-weight: 700;
 }
 
+/* Botón primaria estilo */
 .btn-warning {
     background-color: #e67e22;
     border-color: #e67e22;
@@ -70,20 +72,20 @@ form {
     padding: 10px 25px;
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
 .btn-warning:hover {
     background-color: #d35400;
     border-color: #d35400;
 }
 
+/* Icon hover */
 .pornosotros i {
     transition: transform 0.3s ease;
 }
-
 .pornosotros .col-md-4:hover i {
     transform: scale(1.2);
 }
 
+/* Header */
 .header {
     background-color: #2c3e50;
     color: #ecf0f1;
@@ -91,10 +93,10 @@ form {
     text-align: center;
 }
 
+/* Main */
 .main-content {
     padding: 2rem;
 }
-
 .sport-section {
     margin-bottom: 2rem;
     background-color: #fff;
@@ -102,18 +104,85 @@ form {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .sport-section h2 {
     color: #e67e22;
 }
 
+/* Caja centrada */
 .caja{
     display: flex;
-    justify-content: center; /* centra horizontal */
-    align-items: center;     /* centra vertical */
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
-
 .encabezado{
     font-weight: bold;
+}
+
+/* === TARJETAS UNIFORMES: misma altura y "letterbox" si hace falta === */
+
+/* Forzar columnas flex para que las tarjetas tengan la misma altura */
+.row.equal-cards > [class*="col-"] {
+    display: flex;
+}
+
+/* Tarjeta con altura fija: rellenará con espacio blanco si hace falta */
+.row.equal-cards .card {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    height: var(--card-height);
+    overflow: hidden;
+}
+
+/* Contenedor de la imagen con altura fija (letterbox si la imagen no llena) */
+.card-img-top {
+    width: 100%;
+    height: var(--card-img-height);
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Imagen interna: escalar para que no se corte (se mostrará completa) */
+.card-img-top img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;   /* muestra toda la imagen sin recortar */
+    display: block;
+}
+
+/* cuerpo flexible para empujar el botón al fondo */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 1rem;
+    overflow: auto;
+}
+
+/* texto con comportamiento para no romper la altura */
+.card-text {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+/* botón siempre abajo */
+.card .btn {
+    margin-top: auto;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 992px) {
+    :root { --card-height: 360px; --card-img-height: 180px; }
+}
+@media (max-width: 576px) {
+    :root { --card-height: 320px; --card-img-height: 140px; }
+}
+
+/* Small fixes: imágenes con nombres largos */
+.card-title {
+    word-break: break-word;
 }
