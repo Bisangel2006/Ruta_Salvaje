@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Demo: mostrar confirmación y reset
-        alert('Formulario enviado:\n\n' + JSON.stringify(data, null, 2));
+        alert('Formulario enviado');
         form.reset();
         toggleOtra();
         form.classList.remove('was-validated');
