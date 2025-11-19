@@ -3,186 +3,173 @@
 :root{
     --card-height: 420px;       /* altura total de cada tarjeta (ajustable) */
     --card-img-height: 220px;   /* altura del área de imagen */
+    --card-max-width: 360px;    /* ancho máximo por tarjeta */
+    --card-min-width: 320px;    /* ancho mínimo por tarjeta antes de romper en responsive */
 }
 
-.identidad-card{
-    padding: 15px;
-    border-radius: 10px;
-}
+html, body { height: 100%; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f4f4f4;
     color: #333;
-    margin: 0;
-    padding: 0;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
 }
 
-/* Ajustes generales de formulario */
+/* Formularios */
 form {
-  border: 2px solid black;
-  padding: 20px;
-  border-radius: 8px;
+    border: 2px solid rgba(0,0,0,0.08);
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
 }
 
 /* Hero */
 .hero-section {
     background: url('../../imagenes/banner/Granada.jpg') no-repeat center center/cover;
     color: white;
-    padding: 100px 0;
+    padding: 80px 0;
     text-align: center;
 }
-.hero-section h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-.hero-section .lead {
-    font-size: 1.5rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
+.hero-section h1 { font-size: 3rem; font-weight: 700; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); margin: 0 0 0.5rem; }
+.hero-section .lead { font-size: 1.15rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.45); margin-bottom: 1.25rem; }
 
-/* Secciones */
-.identidad-section, .pornosotros, #actividades {
-    padding: 4rem 0;
-}
+/* Secciones generales */
+.identidad-section, .pornosotros, #actividades { padding: 3.5rem 0; }
 
 /* Tarjetas: sombra, transición y comportamiento */
 .identidad-card, .card {
     border: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 18px rgba(18,18,18,0.06);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    border-radius: 8px;
+    background: #fff;
 }
 .identidad-card:hover, .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 14px 36px rgba(18,18,18,0.10);
 }
 
-.card-title {
-    color: #e67e22;
-    font-weight: 700;
-}
+.card-title { color: #e67e22; font-weight: 700; margin-bottom: 0.6rem; }
 
-/* Botón primaria estilo */
+/* Botón primario */
 .btn-warning {
     background-color: #e67e22;
     border-color: #e67e22;
     color: white;
     font-weight: 700;
-    padding: 10px 25px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    padding: 10px 22px;
+    border-radius: 6px;
+    transition: transform .12s ease, background-color .12s;
 }
-.btn-warning:hover {
-    background-color: #d35400;
-    border-color: #d35400;
-}
+.btn-warning:hover { background-color: #d35400; transform: translateY(-1px); }
 
-/* Icon hover */
-.pornosotros i {
-    transition: transform 0.3s ease;
-}
-.pornosotros .col-md-4:hover i {
-    transform: scale(1.2);
-}
+/* Layout centrado */
+.caja { display: flex; justify-content: center; align-items: center; text-align: center; padding: 1.5rem 0; }
+.encabezado { font-weight: bold; }
 
-/* Header */
-.header {
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    padding: 1rem 0;
-    text-align: center;
-}
+/* === TARJETAS UNIFORMES: 2 filas x 3 columnas y imágenes sin recorte === */
 
-/* Main */
-.main-content {
-    padding: 2rem;
-}
-.sport-section {
-    margin-bottom: 2rem;
-    background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.sport-section h2 {
-    color: #e67e22;
-}
-
-/* Caja centrada */
-.caja{
+/* fila contenedora: flex y centrado */
+.row.equal-cards {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-.encabezado{
-    font-weight: bold;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center; /* centra las columnas en la fila */
+    align-items: stretch;    /* estira columnas para igualar alturas */
+    margin-left: -8px;
+    margin-right: -8px;
 }
 
-/* === TARJETAS UNIFORMES: misma altura y "letterbox" si hace falta === */
-
-/* Forzar columnas flex para que las tarjetas tengan la misma altura */
+/* columnas: adaptables y flex para estirar tarjetas */
 .row.equal-cards > [class*="col-"] {
     display: flex;
+    align-items: stretch;
+    padding: 8px;
+    box-sizing: border-box;
 }
 
-/* Tarjeta con altura fija: rellenará con espacio blanco si hace falta */
+/* forzar 3 columnas por fila en pantallas md+ */
+@media (min-width: 768px) {
+    .row.equal-cards > .col-md-4,
+    .row.equal-cards > .col-4 {
+        flex: 0 0 calc(33.333% - 16px); /* 3 columnas con gap */
+        max-width: calc(33.333% - 16px);
+    }
+}
+
+/* tarjeta con altura fija; rellenará con fondo si falta contenido */
 .row.equal-cards .card {
     display: flex;
     flex-direction: column;
-    flex: 0 0 auto;
+    flex: 1 1 var(--card-min-width);
+    max-width: var(--card-max-width);
+    min-width: var(--card-min-width);
     height: var(--card-height);
     overflow: hidden;
+    margin: 0 auto;
 }
 
-/* Contenedor de la imagen con altura fija (letterbox si la imagen no llena) */
+/* wrapper de imagen: tamaño fijo, letterbox si la imagen no llena */
 .card-img-top {
     width: 100%;
     height: var(--card-img-height);
-    background-color: #f3f3f3;
+    background-color: #f6f6f6;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    padding: 6px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
-/* Imagen interna: escalar para que no se corte (se mostrará completa) */
+/* imagen interna: no recortar, mantener proporción y centrar */
 .card-img-top img {
+    width: auto;
+    height: 100%;
     max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;   /* muestra toda la imagen sin recortar */
+    object-fit: contain; /* mostrar imagen completa sin crop */
     display: block;
+    margin: 0 auto;
 }
 
-/* cuerpo flexible para empujar el botón al fondo */
+/* cuerpo flexible y centrado */
 .card-body {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
     padding: 1rem;
+    text-align: center;
+    justify-content: flex-start;
     overflow: auto;
 }
+.card-text { flex: 1 1 auto; overflow: auto; margin-bottom: 0.6rem; }
 
-/* texto con comportamiento para no romper la altura */
-.card-text {
-    flex: 1 1 auto;
-    overflow: auto;
+/* botón pegado al fondo y centrado */
+.card .btn { margin-top: auto; align-self: center; min-width: 140px; }
+
+/* resaltar tarjeta preseleccionada */
+.highlight { box-shadow: 0 0 0 4px rgba(230,126,34,0.15); }
+
+/* responsive adjustments */
+@media (min-width: 1200px) {
+    :root { --card-height: 460px; --card-img-height: 250px; }
 }
-
-/* botón siempre abajo */
-.card .btn {
-    margin-top: auto;
-}
-
-/* Ajustes responsivos */
 @media (max-width: 992px) {
-    :root { --card-height: 360px; --card-img-height: 180px; }
+    :root { --card-height: 380px; --card-img-height: 180px; }
+    .row.equal-cards .card { max-width: 48%; flex-basis: 48%; }
 }
 @media (max-width: 576px) {
-    :root { --card-height: 320px; --card-img-height: 140px; }
+    :root { --card-height: 320px; --card-img-height: 140px; --card-max-width: 100%; --card-min-width: 100%; }
+    .row.equal-cards .card { max-width: 100%; flex-basis: 100%; }
 }
 
-/* Small fixes: imágenes con nombres largos */
-.card-title {
-    word-break: break-word;
-}
+/* accesibilidad y pequeños arreglos */
+.card-title { word-break: break-word; line-height: 1.15; }
+a:focus, button:focus, .btn:focus { outline: 3px solid rgba(0,123,255,0.12); outline-offset: 2px; }
+
+/* footer */
+footer.bg-dark { background: #111; color: #efefef; }
+footer .container { padding: 1.25rem 0; }
